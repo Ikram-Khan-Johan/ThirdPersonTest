@@ -7,7 +7,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CharacterController characterController;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float rotationSpeed = 0.1f; // Degrees per second
-    // Update is called once per frame
+                                                         // Update is called once per frame
+    // private IInteractable interactable;
     void Update()
     {
         HandleMovement();
@@ -51,9 +52,10 @@ public class PlayerController : MonoBehaviour
     // }
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-         Debug.Log("Collision detected with: " + hit.gameObject.name);
+       
         if (hit.gameObject.CompareTag("movable"))
         {
+             Debug.Log("Collision detected with: " + hit.gameObject.name);
             var rb = hit.gameObject.GetComponent<Rigidbody>();
             if (rb != null)
             {
@@ -61,8 +63,9 @@ public class PlayerController : MonoBehaviour
                 Vector3 forceDirection = hit.transform.position - transform.position;
                 rb.AddForce(forceDirection.normalized * speed, ForceMode.Impulse);
             }
-            Debug.Log("Collided with a movable object!");
+            // Debug.Log("Collided with a movable object!");
             // Handle collision with movable object
         }
+       
     }
 }
