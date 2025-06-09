@@ -1848,7 +1848,6 @@ GameObject:
   - component: {fileID: 1587392849}
   - component: {fileID: 1587392848}
   - component: {fileID: 1587392850}
-  - component: {fileID: 1587392851}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1874,7 +1873,7 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 3
+  m_Height: 3.18
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
@@ -1912,29 +1911,6 @@ MonoBehaviour:
   characterController: {fileID: 1587392848}
   speed: 5
   rotationSpeed: 0.1
---- !u!136 &1587392851
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1587392847}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.56
-  m_Height: 3.29
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 1.51, z: -0.00000008940697}
 --- !u!1 &1667205391
 GameObject:
   m_ObjectHideFlags: 0

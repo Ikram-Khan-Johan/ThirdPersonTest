@@ -32,21 +32,37 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    // void OnCollisionEnter(Collision collision)
+    // {
+    //     Debug.Log("Collision detected with: " + collision.gameObject.name);
+    //     if (collision.gameObject.CompareTag("movable"))
+    //     {
+    //         var rb = collision.gameObject.GetComponent<Rigidbody>();
+    //         if (rb != null)
+    //         {
+    //             // Apply a force to the movable object
+    //             Vector3 forceDirection = collision.transform.position - transform.position;
+    //             rb.AddForce(forceDirection.normalized * speed, ForceMode.Impulse);
+    //         }
+    //         Debug.Log("Collided with a movable object!");
+    //         // Handle collision with movable object
+    //     }
+
+    // }
+    void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        Debug.Log("Collision detected with: " + collision.gameObject.name);
-        if (collision.gameObject.CompareTag("movable"))
+         Debug.Log("Collision detected with: " + hit.gameObject.name);
+        if (hit.gameObject.CompareTag("movable"))
         {
-            var rb = collision.gameObject.GetComponent<Rigidbody>();
+            var rb = hit.gameObject.GetComponent<Rigidbody>();
             if (rb != null)
             {
                 // Apply a force to the movable object
-                Vector3 forceDirection = collision.transform.position - transform.position;
+                Vector3 forceDirection = hit.transform.position - transform.position;
                 rb.AddForce(forceDirection.normalized * speed, ForceMode.Impulse);
             }
             Debug.Log("Collided with a movable object!");
             // Handle collision with movable object
         }
-       
     }
 }
