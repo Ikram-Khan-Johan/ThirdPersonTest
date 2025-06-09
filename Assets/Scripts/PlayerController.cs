@@ -1,5 +1,7 @@
 using UnityEngine;
 
+// This script controls the player's movement and rotation using a CharacterController.
+[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private CharacterController characterController;
@@ -26,7 +28,25 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, angle, 0);
             // Move the character controller in the specified direction
             Vector3 moveDirection = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
-           characterController.Move(moveDirection * speed * Time.deltaTime);
+            characterController.Move(moveDirection * speed * Time.deltaTime);
         }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Collision detected with: " + collision.gameObject.name);
+        if (collision.gameObject.CompareTag("movable"))
+        {
+            var rb = collision.gameObject.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                // Apply a force to the movable object
+                Vector3 forceDirection = collision.transform.position - transform.position;
+                rb.AddForce(forceDirection.normalized * speed, ForceMode.Impulse);
+            }
+            Debug.Log("Collided with a movable object!");
+            // Handle collision with movable object
+        }
+       
     }
 }
