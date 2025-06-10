@@ -663,6 +663,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 939404319}
+  glowMaterial: {fileID: 2100000, guid: c1a38de0c68394bcab9d579eb7259e57, type: 2}
+  defaultMaterial: {fileID: 2100000, guid: 3196cdcc5b1a70343bc5b9c8ac5800fe, type: 2}
+  chest: {fileID: 737331670}
+  chestLid: {fileID: 1407650542}
 --- !u!4 &240263699
 Transform:
   m_ObjectHideFlags: 0
@@ -1688,6 +1692,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1883535388}
   m_SourcePrefab: {fileID: 100100000, guid: c4f4e7a797f707e47a431ce4654787ff, type: 3}
+--- !u!1 &737331670 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6986317444648704190, guid: ae2f489a5a5094a4a91f506933b3770a, type: 3}
+  m_PrefabInstance: {fileID: 939404318}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &741438255
 GameObject:
   m_ObjectHideFlags: 0
@@ -1996,6 +2005,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chest_01
       objectReference: {fileID: 0}
+    - target: {fileID: 1473128021796763994, guid: ae2f489a5a5094a4a91f506933b3770a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c1a38de0c68394bcab9d579eb7259e57, type: 2}
     - target: {fileID: 2261641323823414937, guid: ae2f489a5a5094a4a91f506933b3770a, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -2048,6 +2061,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2517767451144425962, guid: ae2f489a5a5094a4a91f506933b3770a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c1a38de0c68394bcab9d579eb7259e57, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3732,6 +3749,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1407650542 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1251390784440110310, guid: ae2f489a5a5094a4a91f506933b3770a, type: 3}
+  m_PrefabInstance: {fileID: 939404318}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1425138021
 PrefabInstance:
   m_ObjectHideFlags: 0
