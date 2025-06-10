@@ -667,6 +667,7 @@ MonoBehaviour:
   defaultMaterial: {fileID: 2100000, guid: 3196cdcc5b1a70343bc5b9c8ac5800fe, type: 2}
   chest: {fileID: 737331670}
   chestLid: {fileID: 1407650542}
+  coinPrefab: {fileID: 2650896127048596900, guid: cd6ab2e2395c94a929983f427a0b58a1, type: 3}
 --- !u!4 &240263699
 Transform:
   m_ObjectHideFlags: 0
@@ -676,7 +677,7 @@ Transform:
   m_GameObject: {fileID: 240263696}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.941, y: 2.114, z: -18.74}
+  m_LocalPosition: {x: 0.941, y: 2.114, z: -20.439999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1091,11 +1092,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1295513610703122921, guid: cffdbcb4386e65641af1577472586e98, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.87
+      value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1295513610703122921, guid: cffdbcb4386e65641af1577472586e98, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.36
+      value: -0.18
       objectReference: {fileID: 0}
     - target: {fileID: 1295513610703122921, guid: cffdbcb4386e65641af1577472586e98, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1133,7 +1134,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: coin
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 1923395959712443219, guid: cffdbcb4386e65641af1577472586e98, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 656386020, guid: cffdbcb4386e65641af1577472586e98, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1650,7 +1656,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4652434301332168021, guid: c4f4e7a797f707e47a431ce4654787ff, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -18.68
+      value: -20.38
       objectReference: {fileID: 0}
     - target: {fileID: 4652434301332168021, guid: c4f4e7a797f707e47a431ce4654787ff, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5745,7 +5751,6 @@ SceneRoots:
   - {fileID: 534077236}
   - {fileID: 1204707693}
   - {fileID: 2140621486}
-  - {fileID: 734789797}
   - {fileID: 1097352100}
   - {fileID: 1425138021}
   - {fileID: 718894636}
@@ -5753,4 +5758,5 @@ SceneRoots:
   - {fileID: 1053000549}
   - {fileID: 1733563407}
   - {fileID: 1688375587}
+  - {fileID: 734789797}
   - {fileID: 240263699}
