@@ -3,6 +3,18 @@ using UnityEngine;
 public class HandleInterations : MonoBehaviour
 {
 
+private IMessage messageHandler;
+
+    [System.Obsolete]
+    private void Start()
+    {
+        // Find the GameUIManager in the scene
+        messageHandler = FindObjectOfType<GameUIManager>();
+        if (messageHandler == null)
+        {
+            Debug.LogError("GameUIManager not found in the scene.");
+        }
+    }
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Door"))
@@ -14,6 +26,8 @@ public class HandleInterations : MonoBehaviour
         // Debug.Log("Trigger stay with: " + other.gameObject.name);
         if (other.gameObject.CompareTag("Door"))
         {
+            messageHandler?.ShowMessage("Press 'E' to interact with the door.");
+
             // Debug.Log("Door Collision detected with: " + other.gameObject.name);
             IInteractable interactable = other.gameObject.GetComponent<IInteractable>();
             if (interactable != null)
@@ -37,6 +51,7 @@ public class HandleInterations : MonoBehaviour
     {
          if (other.gameObject.CompareTag("Door"))
         other.gameObject.GetComponent<BoxCollider>().isTrigger = false;
+        messageHandler?.HideMessage();
         Debug.Log("Exited trigger with: " + other.gameObject.name);
     }
 }
