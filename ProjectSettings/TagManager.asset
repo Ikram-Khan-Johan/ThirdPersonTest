@@ -8,6 +8,7 @@ TagManager:
   - Door
   - Chest
   - Light
+  - CollectableCoin
   layers:
   - Default
   - TransparentFX

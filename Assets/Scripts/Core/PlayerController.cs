@@ -52,10 +52,10 @@ public class PlayerController : MonoBehaviour
     // }
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-       
+
         if (hit.gameObject.CompareTag("movable"))
         {
-             Debug.Log("Collision detected with: " + hit.gameObject.name);
+            Debug.Log("Collision detected with: " + hit.gameObject.name);
             var rb = hit.gameObject.GetComponent<Rigidbody>();
             if (rb != null)
             {
@@ -65,6 +65,23 @@ public class PlayerController : MonoBehaviour
             }
             // Debug.Log("Collided with a movable object!");
             // Handle collision with movable object
+        }
+        if (hit.gameObject.CompareTag("CollectableCoin"))
+        {
+            Debug.Log("Collision detected with: " + hit.gameObject.name);
+            ISoundPlayer soundPlayer = hit.gameObject.GetComponent<ISoundPlayer>();
+            if (soundPlayer != null)
+            {
+                AudioClip audioClip = Resources.Load<AudioClip>("collect_coin");
+                soundPlayer.PlaySound(audioClip);
+                hit.gameObject.GetComponent<MeshRenderer>().enabled = false; // Hide the coin mesh
+                hit.gameObject.GetComponent<Collider>().enabled = false;
+                Destroy(hit.gameObject, 1f); // Destroy the coin after 1 second to allow sound to play
+            }
+            else
+            {
+                Debug.LogWarning("No ISoundPlayer component found on the coin.");
+            }
         }
        
     }
