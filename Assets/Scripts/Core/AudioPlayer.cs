@@ -4,7 +4,6 @@ using UnityEngine;
 public class AudioPlayer : MonoBehaviour, ISoundPlayer
 {
    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip audioClip;
 
     void Awake()
     {
@@ -24,7 +23,7 @@ public class AudioPlayer : MonoBehaviour, ISoundPlayer
         }
 
     }
-    public void PlaySound()
+    public void PlaySound(AudioClip audioClip)
     {
         if (gameObject.GetComponent<AudioSource>() == null)
         {

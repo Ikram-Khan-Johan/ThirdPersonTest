@@ -20,6 +20,7 @@ public class Chest : MonoBehaviour, IInteractable
         ToggleChest();
     }
 
+
     private void ToggleChest()
     {
         animator.SetTrigger("Open");
@@ -58,9 +59,10 @@ public class Chest : MonoBehaviour, IInteractable
             coin.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             coin.transform.localRotation = Quaternion.identity;
             ISoundPlayer soundPlayer = coin.GetComponent<ISoundPlayer>();
+            AudioClip coinClip = Resources.Load<AudioClip>("collect_coin");
             if (soundPlayer != null)
             {
-                soundPlayer.PlaySound();
+                soundPlayer.PlaySound(coinClip);
             }
             else
             {
