@@ -10,12 +10,12 @@ public class GameUIManager : MonoBehaviour, IMessage
     {
         messagePanel.SetActive(false);
         messageText.text = string.Empty;
-        Debug.Log("Message hidden.");
+       // Debug.Log("Message hidden.");
     }
     public void ShowMessage(string message)
     {
         messagePanel.SetActive(true);
         messageText.text = message;
-        Debug.Log("Message displayed: " + message);
+       // Debug.Log("Message displayed: " + message);
     }
 }

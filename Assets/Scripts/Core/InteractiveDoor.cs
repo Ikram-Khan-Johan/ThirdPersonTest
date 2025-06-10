@@ -15,6 +15,13 @@ public class InteractiveDoor : MonoBehaviour, IInteractable
         ToggleDoor();
     }
 
+    // void Update()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.E))
+    //     {
+    //         ToggleDoor();
+    //     }
+    // }
     private void ToggleDoor()
     {
         ToggleDoor(animator);
@@ -26,12 +33,14 @@ public class InteractiveDoor : MonoBehaviour, IInteractable
         {
             animator.SetBool("isOpen", false);
             isOpen = false;
+            GetComponent<BoxCollider>().isTrigger = false;
             Debug.Log("Door closed.");
         }
         else
         {
             animator.SetBool("isOpen", true);
             isOpen = true;
+            GetComponent<BoxCollider>().isTrigger = true;
             Debug.Log("Door opened.");
         }
         // Logic to toggle the door's state (open/close)

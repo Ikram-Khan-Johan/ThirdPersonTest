@@ -21,7 +21,7 @@ public class CoinAnimator : MonoBehaviour
         initialRotation = transform.rotation;
          StartCoroutine(DisableCoinAfterTime());
 
-         var force = new Vector3(Random.Range(-3f, 3f), Random.Range(12f, 15f), Random.Range(-3f, 3f));
+         var force = new Vector3(Random.Range(-3f, 3f), Random.Range(12f, 12f), Random.Range(-3f, 3f));
         ApplyForce(force);
     }
 
