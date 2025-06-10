@@ -48,15 +48,24 @@ public class Chest : MonoBehaviour, IInteractable
 
     private void CollectCoins()
     {
-       
-       for (int i = 0; i < 10; i++)
+
+        for (int i = 0; i < 10; i++)
         {
             var coin = Instantiate(coinPrefab, transform.position, Quaternion.identity) as GameObject;
-            
+
             coin.transform.SetParent(transform);
             coin.transform.localPosition = new Vector3(0f, 0f, 0f);
             coin.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             coin.transform.localRotation = Quaternion.identity;
+            ISoundPlayer soundPlayer = coin.GetComponent<ISoundPlayer>();
+            if (soundPlayer != null)
+            {
+                soundPlayer.PlaySound();
+            }
+            else
+            {
+                Debug.LogWarning("ISoundPlayer component is missing on the coin prefab.");
+            }
             // Logic to collect coins
             // Debug.Log("Collected coin " + (i + 1));
         }
