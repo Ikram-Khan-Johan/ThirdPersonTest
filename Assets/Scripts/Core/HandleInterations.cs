@@ -19,7 +19,7 @@ public class HandleInterations : MonoBehaviour
             Debug.LogError("GameUIManager not found in the scene.");
         }
          messageHandler = FindObjectOfType<GameUIManager>();
-        scoreManager = FindObjectOfType<GameUIManager>();
+        scoreManager = FindObjectOfType<ScoreManager>();
         if (messageHandler == null)
         {
             Debug.LogError("GameUIManager not found in the scene.");

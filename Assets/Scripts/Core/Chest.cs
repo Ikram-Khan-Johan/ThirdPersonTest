@@ -18,7 +18,7 @@ public class Chest : MonoBehaviour, IInteractable
 
     void Start()
     {
-        scoreManager = FindAnyObjectByType<GameUIManager>();
+        scoreManager = FindAnyObjectByType<ScoreManager>();
     }
     public void Interact()
     {

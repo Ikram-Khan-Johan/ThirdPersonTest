@@ -2,14 +2,14 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class GameUIManager : MonoBehaviour, IMessage, IScoreManager
+public class GameUIManager : MonoBehaviour, IMessage
 {
     [SerializeField] private GameObject messagePanel;
     [SerializeField] private TMP_Text messageText;
     [SerializeField] private float hintMessageDelay = 3f; // Delay before hiding the hint message
     [SerializeField] private GameObject hintPanel;
     [SerializeField] private TMP_Text scoreText;
-    public int TotalScore { get; set; }
+   
     void Start()
     {
         StartCoroutine(HintMessage(hintMessageDelay));
@@ -33,14 +33,8 @@ public class GameUIManager : MonoBehaviour, IMessage, IScoreManager
         hintPanel.SetActive(false);
     }
 
-    public void AddScore(int score)
+    public void UpdateScoreText(string message)
     {
-        TotalScore += score;
-        scoreText.text = "Score: " + TotalScore.ToString();
+        scoreText.text = message;
     }
-
-    public int GetScore()
-    {
-        return TotalScore;
-    }
-}
+ }
