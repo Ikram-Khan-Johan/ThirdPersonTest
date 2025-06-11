@@ -29,6 +29,7 @@ private bool isJumping = false; // Flag to check if the player is jumping
 
     // Input vector for movement
     private IMessage messageHandler;
+    private IScoreManager scoreManager;
 
     [Obsolete]
     void Start()
@@ -40,6 +41,7 @@ private bool isJumping = false; // Flag to check if the player is jumping
             Debug.LogError("Rigidbody component is missing on the player object.");
         }
         messageHandler = FindObjectOfType<GameUIManager>();
+        scoreManager = FindObjectOfType<GameUIManager>();
         if (messageHandler == null)
         {
             Debug.LogError("GameUIManager not found in the scene.");
@@ -169,6 +171,7 @@ private bool isJumping = false; // Flag to check if the player is jumping
                 soundPlayer.PlaySound(audioClip);
                 other.gameObject.GetComponent<MeshRenderer>().enabled = false; // Hide the coin mesh
                 other.gameObject.GetComponent<Collider>().enabled = false;
+                scoreManager?.AddScore(1); // Increment the score by 1
                 Destroy(other.gameObject, 1f); // Destroy the coin after 1 second to allow sound to play
             }
             else

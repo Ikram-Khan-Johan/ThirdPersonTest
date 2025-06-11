@@ -13,6 +13,13 @@ public class Chest : MonoBehaviour, IInteractable
     [SerializeField] private GameObject chest;
     [SerializeField] private GameObject chestLid;
     [SerializeField] private GameObject coinPrefab;
+
+    IScoreManager scoreManager;
+
+    void Start()
+    {
+        scoreManager = FindAnyObjectByType<GameUIManager>();
+    }
     public void Interact()
     {
         // Implement the interaction logic here
@@ -60,6 +67,7 @@ public class Chest : MonoBehaviour, IInteractable
             coin.transform.localRotation = Quaternion.identity;
             ISoundPlayer soundPlayer = coin.GetComponent<ISoundPlayer>();
             AudioClip coinClip = Resources.Load<AudioClip>("collect_coin");
+            scoreManager.AddScore(1);
             if (soundPlayer != null)
             {
                 soundPlayer.PlaySound(coinClip);
@@ -73,4 +81,6 @@ public class Chest : MonoBehaviour, IInteractable
         }
         // You can add sound effects or animations for collecting coins
     }
+
+   
 }
