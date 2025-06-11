@@ -751,9 +751,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 240263699}
-  - component: {fileID: 240263698}
   - component: {fileID: 240263697}
   - component: {fileID: 240263700}
+  - component: {fileID: 240263698}
   m_Layer: 0
   m_Name: ChestItems
   m_TagString: Chest
@@ -2215,7 +2215,7 @@ Transform:
   m_GameObject: {fileID: 741438255}
   serializedVersion: 2
   m_LocalRotation: {x: 0.04332025, y: 0.0000000016098435, z: -6.980435e-11, w: 0.9990613}
-  m_LocalPosition: {x: 17.6, y: 3.75, z: -7.7}
+  m_LocalPosition: {x: 17.6, y: 3.75, z: 113.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3476,7 +3476,7 @@ Transform:
   m_GameObject: {fileID: 1074209078}
   serializedVersion: 2
   m_LocalRotation: {x: 0.043320246, y: 0.0000000016098434, z: -6.9804364e-11, w: 0.9990613}
-  m_LocalPosition: {x: 17.6, y: 3.75, z: -7.7}
+  m_LocalPosition: {x: 17.6, y: 3.75, z: 113.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5930,6 +5930,7 @@ GameObject:
   - component: {fileID: 1587392850}
   - component: {fileID: 1587392852}
   - component: {fileID: 1587392851}
+  - component: {fileID: 1587392853}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -5946,7 +5947,7 @@ Transform:
   m_GameObject: {fileID: 1587392847}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 17.6, y: 1.5, z: -1.6}
+  m_LocalPosition: {x: 17.6, y: 1.5, z: 119.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6026,6 +6027,18 @@ CapsuleCollider:
   m_Height: 3.1
   m_Direction: 1
   m_Center: {x: -0.000120162964, y: 0, z: 0.032694817}
+--- !u!114 &1587392853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587392847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34d244e10ddbb42d1b3b37a329d50efd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1593768714 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7026811362001947778, guid: 73aeb5eeaf8e2a745bd794506b102133, type: 3}

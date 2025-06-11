@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -17,19 +18,18 @@ public class PlayerController : MonoBehaviour
 
     private bool isRunning = false; // Flag to check if the player is running
     private Rigidbody rb;
-     private bool isGrounded;
-     [SerializeField] private float groundCheckDistance = 0.2f; // Distance to check for ground
-     [SerializeField] private LayerMask groundLayer; // Layer mask for ground detection
+    private bool isGrounded;
+    [SerializeField] private float groundCheckDistance = 0.2f; // Distance to check for ground
+    [SerializeField] private LayerMask groundLayer; // Layer mask for ground detection
     [SerializeField] private GameObject groundCheck; // Force applied when jumping
                                                      // private float gravity = -9.81f; // Gravity value
                                                      // private float jumpHeight = 2f; // Height of the jump
     [SerializeField] private float jumpForce = 5f; // Force applied when jumping
-    
-private bool isJumping = false; // Flag to check if the player is jumping
+
+    private bool isJumping = false; // Flag to check if the player is jumping
 
     // Input vector for movement
-    private IMessage messageHandler;
-    private IScoreManager scoreManager;
+
 
     [Obsolete]
     void Start()
@@ -40,17 +40,10 @@ private bool isJumping = false; // Flag to check if the player is jumping
         {
             Debug.LogError("Rigidbody component is missing on the player object.");
         }
-        messageHandler = FindObjectOfType<GameUIManager>();
-        scoreManager = FindObjectOfType<GameUIManager>();
-        if (messageHandler == null)
-        {
-            Debug.LogError("GameUIManager not found in the scene.");
-        }
+
     }
     Vector3 inputVector;
 
-    bool inRange = false;
-    IInteractable interactable;
     void Update()
     {
         // HandleMovement();
@@ -60,13 +53,7 @@ private bool isJumping = false; // Flag to check if the player is jumping
         float z = Input.GetAxisRaw("Vertical");
         inputVector = new Vector3(x, 0, z).normalized;
 
-        if (Input.GetKeyDown(KeyCode.E) && inRange)
-        {
-            // Check if the player is in range to interact with an object
-            Debug.Log("Key Pressed: E");
-            interactable.Interact();
-            // Handle interaction logic here
-        }
+
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             isRunning = true; // Set running flag to true
@@ -87,7 +74,7 @@ private bool isJumping = false; // Flag to check if the player is jumping
         //     rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); // Apply an upward force for jumping
 
         // }
-        
+
     }
 
     void FixedUpdate()
@@ -115,143 +102,25 @@ private bool isJumping = false; // Flag to check if the player is jumping
             transform.position += moveVector; // Move the player in the calculated direction
 
         }
-//         if (!isGrounded) {
+        //         if (!isGrounded) {
 
-//             if (rb.linearVelocity.y < 0)
-// {
-//             rb.linearVelocity += Vector3.up * -9.81f * Time.deltaTime;
-// }
-//             Debug.Log("Check Value" + rb.linearVelocity.y);
-//          }
-       
-             var forward = mainCamera.transform.forward;
-            forward.y = 0; // Keep the forward vector horizontal
-            forward.Normalize(); // Normalize the forward vector
-            var targetRotation = Quaternion.LookRotation(forward);
-            // Rotate the player to face the camera's forward direction
-            if (forward.magnitude > 0.01f)
-            {
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 10f * Time.fixedDeltaTime);
-            }
-    }
+        //             if (rb.linearVelocity.y < 0)
+        // {
+        //             rb.linearVelocity += Vector3.up * -9.81f * Time.deltaTime;
+        // }
+        //             Debug.Log("Check Value" + rb.linearVelocity.y);
+        //          }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        
-         if (collision.gameObject.CompareTag("movable"))
+        var forward = mainCamera.transform.forward;
+        forward.y = 0; // Keep the forward vector horizontal
+        forward.Normalize(); // Normalize the forward vector
+        var targetRotation = Quaternion.LookRotation(forward);
+        // Rotate the player to face the camera's forward direction
+        if (forward.magnitude > 0.01f)
         {
-            Debug.Log("Collision detected with: " + collision.gameObject.name);
-            var rb = collision.gameObject.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                // Apply a force to the movable object
-                Vector3 forceDirection = collision.transform.position - transform.position;
-                rb.AddForce(forceDirection.normalized * 100, ForceMode.Impulse);
-                Debug.Log("Applied force to movable object: " + collision.gameObject.name + " with force: " + forceDirection.normalized * 100);
-            }
-            // Debug.Log("Collided with a movable object!");
-            // Handle collision with movable object
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 10f * Time.fixedDeltaTime);
         }
-        
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        // if (other.gameObject.CompareTag("Door"))
-        //     other.gameObject.GetComponent<BoxCollider>().isTrigger = false;
-        // Debug.Log("Entered trigger with: " + other.gameObject.name);
 
-       if (other.gameObject.CompareTag("CollectableCoin"))
-        {
-            Debug.Log("Collision detected with: " + other.gameObject.name);
-            ISoundPlayer soundPlayer = other.gameObject.GetComponent<ISoundPlayer>();
-            if (soundPlayer != null)
-            {
-                AudioClip audioClip = Resources.Load<AudioClip>("collect_coin");
-                soundPlayer.PlaySound(audioClip);
-                other.gameObject.GetComponent<MeshRenderer>().enabled = false; // Hide the coin mesh
-                other.gameObject.GetComponent<Collider>().enabled = false;
-                scoreManager?.AddScore(1); // Increment the score by 1
-                Destroy(other.gameObject, 1f); // Destroy the coin after 1 second to allow sound to play
-            }
-            else
-            {
-                Debug.LogWarning("No ISoundPlayer component found on the coin.");
-            }
-        }
-    }
-    private void OnTriggerStay(Collider other)
-    {
-        if (inRange) return;
-        // Prevents multiple messages if already in range
-        Debug.Log("Trigger stay with: " + other.gameObject.name);
-        if (other.gameObject.CompareTag("Door"))
-        {
-            messageHandler?.ShowMessage("Press 'E' to interact with the door.");
-            inRange = true;
-            // Debug.Log("Door Collision detected with: " + other.gameObject.name);
-            interactable = other.gameObject.GetComponentInParent<IInteractable>();
-            if (interactable != null)
-            {
-                // Check for interaction input
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    Debug.Log("Key Pressed: E");
-                    interactable.Interact();
-                    other.gameObject.GetComponentInParent<BoxCollider>().isTrigger = true;
-                }
-                // Debug.Log("Collided with a Door object!");
-            }
-            else
-            {
-                Debug.LogWarning("No IInteractable component found on the door.");
-            }
-        }
-        if (other.gameObject.CompareTag("Chest"))
-        {
-            inRange = true;
-            messageHandler?.ShowMessage("Press 'E' to interact with the chest.");
-            interactable = other.gameObject.GetComponent<IInteractable>();
-            if (interactable != null)
-            {
-                // Check for interaction input
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    Debug.Log("Key Pressed: E");
-                    interactable.Interact();
-                }
-            }
-            else
-            {
-                Debug.LogWarning("No IInteractable component found on the chest.");
-            }
-        }
-        if (other.gameObject.CompareTag("Light"))
-        {
-            inRange = true;
-            messageHandler?.ShowMessage("Press 'E' to interact with the Light.");
-            interactable = other.gameObject.GetComponent<IInteractable>();
-            if (interactable != null)
-            {
-                // Check for interaction input
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    Debug.Log("Key Pressed: E");
-                    interactable.Interact();
-                }
-            }
-            else
-            {
-                Debug.LogWarning("No IInteractable component found on the NPC.");
-            }
-        }
-    }
-    void OnTriggerExit(Collider other)
-    {
-        inRange = false;
-        // if (other.gameObject.CompareTag("Door"))
-        //     other.gameObject.GetComponent<BoxCollider>().isTrigger = false;
-        messageHandler?.HideMessage();
-        Debug.Log("Exited trigger with: " + other.gameObject.name);
-    }
 }
