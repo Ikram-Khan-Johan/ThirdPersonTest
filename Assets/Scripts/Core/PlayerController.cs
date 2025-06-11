@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 // This script controls the player's movement and rotation using a CharacterController.
@@ -16,22 +14,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speedMultiplier = 1.5f; // Multiplier for speed
     [SerializeField] private float moveSpeed = 5f; // Speed of the player movement
 
-    private bool isRunning = false; // Flag to check if the player is running
-    private Rigidbody rb;
-    private bool isGrounded;
+    
     [SerializeField] private float groundCheckDistance = 0.2f; // Distance to check for ground
     [SerializeField] private LayerMask groundLayer; // Layer mask for ground detection
     [SerializeField] private GameObject groundCheck; // Force applied when jumping
-                                                     // private float gravity = -9.81f; // Gravity value
-                                                     // private float jumpHeight = 2f; // Height of the jump
+                                                    
     [SerializeField] private float jumpForce = 5f; // Force applied when jumping
 
+    private bool isRunning = false; // Flag to check if the player is running
+    private Rigidbody rb;
+    private bool isGrounded;
     private bool isJumping = false; // Flag to check if the player is jumping
 
     // Input vector for movement
+    Vector3 inputVector;
 
-
-    [Obsolete]
     void Start()
     {
         mainCamera = Camera.main;
@@ -42,7 +39,7 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-    Vector3 inputVector;
+   
 
     void Update()
     {
@@ -65,21 +62,21 @@ public class PlayerController : MonoBehaviour
             moveSpeed /= speedMultiplier; // Reset the move speed
         }
 
-        // if (isGrounded && Input.GetKeyDown(KeyCode.Space))
-        // {
-        //     // Handle jump logic here
-        //     Debug.Log("Jumping");
-        //     isJumping = true; // Set jumping flag to true
-        //     rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z); // Reset vertical velocity before jumping
-        //     rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); // Apply an upward force for jumping
+        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
+        {
+            // Handle jump logic here
+            Debug.Log("Jumping");
+            isJumping = true; // Set jumping flag to true
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z); // Reset vertical velocity before jumping
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); // Apply an upward force for jumping
 
-        // }
+        }
 
     }
 
     void FixedUpdate()
     {
-        rb.linearVelocity = Vector3.zero; // Reset linear velocity to prevent unwanted movement
+        // rb.linearVelocity = Vector3.zero; // Reset velocity to prevent unwanted movement
         HandleMovement();
     }
 
@@ -98,17 +95,17 @@ public class PlayerController : MonoBehaviour
             Vector3 moveVector = finalMovementDirection * moveSpeed * Time.deltaTime; // Adjust for time
 
             // rb.MovePosition(rb.position + (inputVector * speed * Time.fixedDeltaTime));
-            // rb.MovePosition(rb.position + moveVector);
-            transform.position += moveVector; // Move the player in the calculated direction
+            rb.MovePosition(rb.position + moveVector);
+            // transform.position += moveVector; // Move the player in the calculated direction
 
         }
         //         if (!isGrounded) {
 
-        //             if (rb.linearVelocity.y < 0)
+        //             if (rb.velocity.y < 0)
         // {
-        //             rb.linearVelocity += Vector3.up * -9.81f * Time.deltaTime;
+        //             rb.velocity += Vector3.up * -9.81f * Time.deltaTime;
         // }
-        //             Debug.Log("Check Value" + rb.linearVelocity.y);
+        //             Debug.Log("Check Value" + rb.velocity.y);
         //          }
 
         var forward = mainCamera.transform.forward;
