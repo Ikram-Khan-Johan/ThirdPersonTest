@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameUIManager : MonoBehaviour, IMessage
 {
@@ -9,7 +10,7 @@ public class GameUIManager : MonoBehaviour, IMessage
     [SerializeField] private float hintMessageDelay = 3f; // Delay before hiding the hint message
     [SerializeField] private GameObject hintPanel;
     [SerializeField] private TMP_Text scoreText;
-   
+
     void Start()
     {
         StartCoroutine(HintMessage(hintMessageDelay));
@@ -26,7 +27,7 @@ public class GameUIManager : MonoBehaviour, IMessage
         messageText.text = message;
         // Debug.Log("Message displayed: " + message);
     }
-    
+
     IEnumerator HintMessage(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -37,4 +38,10 @@ public class GameUIManager : MonoBehaviour, IMessage
     {
         scoreText.text = message;
     }
+    
+    public void OnPressBackButton()
+    {
+        SceneManager.LoadSceneAsync(0);
+    }
+    
  }
