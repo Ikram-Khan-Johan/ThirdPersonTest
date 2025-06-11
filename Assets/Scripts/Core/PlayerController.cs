@@ -17,11 +17,14 @@ public class PlayerController : MonoBehaviour
 
     private bool isRunning = false; // Flag to check if the player is running
     private Rigidbody rb;
-    // private bool isGrounded;
-    // private float gravity = -9.81f; // Gravity value
-    // private float jumpHeight = 2f; // Height of the jump
-    // private float rotationSmoothTime = 0.1f; // Time to smooth the rotation
-    // private float rotationVelocity; // Used for SmoothDampAngle
+     private bool isGrounded;
+     [SerializeField] private float groundCheckDistance = 0.2f; // Distance to check for ground
+     [SerializeField] private LayerMask groundLayer; // Layer mask for ground detection
+    [SerializeField] private GameObject groundCheck; // Force applied when jumping
+                                                     // private float gravity = -9.81f; // Gravity value
+                                                     // private float jumpHeight = 2f; // Height of the jump
+    [SerializeField] private float jumpForce = 5f; // Force applied when jumping
+private bool isJumping = false; // Flag to check if the player is jumping
 
     // Input vector for movement
     private IMessage messageHandler;
@@ -47,7 +50,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // HandleMovement();
-
+        isGrounded = Physics.CheckSphere(groundCheck.transform.position, groundCheckDistance, groundLayer);
+        // Debug.Log("Is Grounded: " + isGrounded);
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
         inputVector = new Vector3(x, 0, z).normalized;
@@ -70,10 +74,16 @@ public class PlayerController : MonoBehaviour
             moveSpeed /= speedMultiplier; // Reset the move speed
         }
 
-        // Debug.Log("Player Rotation: " + transform.rotation.eulerAngles);
-        // HandleMovement();
-        // Debug.Log("Input Vector: " + inputVector);
+        // if (isGrounded && Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     // Handle jump logic here
+        //     Debug.Log("Jumping");
+        //     isJumping = true; // Set jumping flag to true
+        //     rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z); // Reset vertical velocity before jumping
+        //     rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); // Apply an upward force for jumping
 
+        // }
+        
 
     }
     IInteractable interactable;
@@ -106,7 +116,15 @@ public class PlayerController : MonoBehaviour
             transform.position += moveVector; // Move the player in the calculated direction
 
         }
-        
+//         if (!isGrounded) {
+
+//             if (rb.linearVelocity.y < 0)
+// {
+//             rb.linearVelocity += Vector3.up * -9.81f * Time.deltaTime;
+// }
+//             Debug.Log("Check Value" + rb.linearVelocity.y);
+//          }
+       
              var forward = mainCamera.transform.forward;
             forward.y = 0; // Keep the forward vector horizontal
             forward.Normalize(); // Normalize the forward vector

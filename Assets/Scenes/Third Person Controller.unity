@@ -1840,7 +1840,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 500
+  far clip plane: 1000
   field of view: 60.000004
   orthographic: 0
   orthographic size: 5
@@ -1867,8 +1867,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 741438255}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.05018966, y: 0, z: 0, w: 0.9987397}
-  m_LocalPosition: {x: 17.6, y: 2.25, z: -64.36}
+  m_LocalRotation: {x: 0.04332025, y: 0.0000000016098435, z: -6.980435e-11, w: 0.9990613}
+  m_LocalPosition: {x: 17.6, y: 3.75, z: -65.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2667,7 +2667,7 @@ Transform:
   m_GameObject: {fileID: 1034118114}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.539, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2977,7 +2977,7 @@ MonoBehaviour:
       Radius: 2.52
       Height: 5
     Center:
-      Radius: 5.26
+      Radius: 6.1
       Height: 2.25
     Bottom:
       Radius: 2.5
@@ -3041,7 +3041,7 @@ MonoBehaviour:
     FieldOfView: 60.000004
     OrthographicSize: 5
     NearClipPlane: 0.3
-    FarClipPlane: 500
+    FarClipPlane: 1000
     Dutch: 0
     ModeOverride: 0
     PhysicalProperties:
@@ -3065,8 +3065,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1074209078}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.050189663, y: -0.000000029217825, z: 0.000000001468283, w: 0.9987397}
-  m_LocalPosition: {x: 17.6, y: 2.25, z: -64.36}
+  m_LocalRotation: {x: 0.043320246, y: 0.0000000016098434, z: -6.9804364e-11, w: 0.9990613}
+  m_LocalPosition: {x: 17.6, y: 3.75, z: -65.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4830,11 +4830,12 @@ Transform:
   m_GameObject: {fileID: 1587392847}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 17.6, y: 0, z: -59.1}
+  m_LocalPosition: {x: 17.6, y: 1.5, z: -59.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1034118118}
+  - {fileID: 1665897058}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1587392850
@@ -4851,6 +4852,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   rotationSpeed: 0.1
+  speedMultiplier: 1.5
+  moveSpeed: 5
+  groundCheckDistance: 0.2
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  groundCheck: {fileID: 1665897057}
+  jumpForce: 200
 --- !u!54 &1587392851
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4859,10 +4868,10 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1587392847}
   serializedVersion: 4
-  m_Mass: 80
+  m_Mass: 2
   m_Drag: 0
   m_AngularDrag: 0.5
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_CenterOfMass: {x: 0, y: 0.5, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
@@ -4897,10 +4906,41 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.57
-  m_Height: 3.1112878
+  m_Radius: 0.52
+  m_Height: 3.1
   m_Direction: 1
-  m_Center: {x: -0.000120162964, y: 1.5159265, z: 0.032694817}
+  m_Center: {x: -0.000120162964, y: 0, z: 0.032694817}
+--- !u!1 &1665897057
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1665897058}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1665897058
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665897057}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1587392849}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1667205391
 GameObject:
   m_ObjectHideFlags: 0
@@ -4913,7 +4953,7 @@ GameObject:
   - component: {fileID: 1667205394}
   - component: {fileID: 1667205393}
   - component: {fileID: 1667205392}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
