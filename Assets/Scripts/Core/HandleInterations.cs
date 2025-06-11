@@ -32,7 +32,7 @@ public class HandleInterations : MonoBehaviour
           if (Input.GetKeyDown(KeyCode.E) && inRange)
         {
             // Check if the player is in range to interact with an object
-            Debug.Log("Key Pressed: E");
+            // Debug.Log("Key Pressed: E");
             interactable.Interact();
             // Handle interaction logic here
         }
@@ -40,27 +40,23 @@ public class HandleInterations : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-
         if (collision.gameObject.CompareTag("movable"))
         {
-            Debug.Log("Collision detected with: " + collision.gameObject.name);
+            // Debug.Log("Collision detected with: " + collision.gameObject.name);
             var rb = collision.gameObject.GetComponent<Rigidbody>();
             if (rb != null)
             {
                 // Apply a force to the movable object
                 Vector3 forceDirection = collision.transform.position - transform.position;
-                rb.AddForce(forceDirection.normalized * 100, ForceMode.Impulse);
-                Debug.Log("Applied force to movable object: " + collision.gameObject.name + " with force: " + forceDirection.normalized * 100);
+                rb.AddForce(forceDirection.normalized * 50, ForceMode.Impulse);
+                // Debug.Log("Applied force to movable object: " + collision.gameObject.name + " with force: " + forceDirection.normalized * 100);
             }
-            // Debug.Log("Collided with a movable object!");
-            // Handle collision with movable object
         }
 
     }
 
     void OnTriggerEnter(Collider other)
     {
-
         if (other.gameObject.CompareTag("CollectableCoin"))
         {
             Debug.Log("Collision detected with: " + other.gameObject.name);

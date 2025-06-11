@@ -14,11 +14,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speedMultiplier = 1.5f; // Multiplier for speed
     [SerializeField] private float moveSpeed = 5f; // Speed of the player movement
 
-    
+
     [SerializeField] private float groundCheckDistance = 0.2f; // Distance to check for ground
     [SerializeField] private LayerMask groundLayer; // Layer mask for ground detection
     [SerializeField] private GameObject groundCheck; // Force applied when jumping
-                                                    
+
     [SerializeField] private float jumpForce = 5f; // Force applied when jumping
 
     private bool isRunning = false; // Flag to check if the player is running
@@ -29,8 +29,10 @@ public class PlayerController : MonoBehaviour
     // Input vector for movement
     Vector3 inputVector;
 
+    private bool cursorLocked = true; // Flag to check if the cursor is locked
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked; // Initialize cursor lock state
         mainCamera = Camera.main;
         rb = GetComponent<Rigidbody>();
         if (rb == null)
@@ -39,7 +41,7 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-   
+
 
     void Update()
     {
@@ -71,6 +73,12 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); // Apply an upward force for jumping
 
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            cursorLocked = !cursorLocked; // Toggle cursor lock state
+            Cursor.lockState = cursorLocked ? CursorLockMode.Locked : CursorLockMode.None; // Unlock the cursor when Escape is pressed
+            Debug.Log("Escape key pressed, unlocking cursor.");
+        }
 
     }
 
@@ -91,6 +99,7 @@ public class PlayerController : MonoBehaviour
             Vector3 cameraRight = mainCamera.transform.right;
             cameraRight.y = 0; // Keep the right vector horizontal
             Vector3 finalMovementDirection = (cameraForward * inputVector.z) + (cameraRight * inputVector.x);
+            finalMovementDirection.y = 0; // Ensure the movement direction is horizontal
             finalMovementDirection.Normalize(); // Ensure the length is 1
             Vector3 moveVector = finalMovementDirection * moveSpeed * Time.deltaTime; // Adjust for time
 
@@ -99,14 +108,15 @@ public class PlayerController : MonoBehaviour
             // transform.position += moveVector; // Move the player in the calculated direction
 
         }
-        //         if (!isGrounded) {
+        if (!isGrounded)
+        {
 
-        //             if (rb.velocity.y < 0)
-        // {
-        //             rb.velocity += Vector3.up * -9.81f * Time.deltaTime;
-        // }
-        //             Debug.Log("Check Value" + rb.velocity.y);
-        //          }
+            if (rb.linearVelocity.y < 0)
+            {
+                rb.linearVelocity += Vector3.up * -9.81f * Time.deltaTime;
+            }
+            // Debug.Log("Check Value" + rb.velocity.y);
+        }
 
         var forward = mainCamera.transform.forward;
         forward.y = 0; // Keep the forward vector horizontal
@@ -115,7 +125,7 @@ public class PlayerController : MonoBehaviour
         // Rotate the player to face the camera's forward direction
         if (forward.magnitude > 0.01f)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 10f * Time.fixedDeltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
         }
     }
 
