@@ -14172,3 +14172,19 @@ Memory consumption went from 170.5 MB to 167.3 MB.
 Total: 4.563417 ms (FindLiveObjects: 0.318959 ms CreateObjectMapping: 0.116333 ms MarkObjects: 3.102208 ms  DeleteObjects: 1.025750 ms)
 
 Prepare: number of updated asset objects reloaded= 0
+========================================================================
+Received Import Request.
+  Time since last request: 10174.207728 seconds.
+  path: Assets/UnityTechnologies/Basic Asset Pack Interior/Materials/SmallProps.mat
+  artifactKey: Guid(ec3aef968e8b7cd4dbde72f86144a923) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/UnityTechnologies/Basic Asset Pack Interior/Materials/SmallProps.mat using Guid(ec3aef968e8b7cd4dbde72f86144a923) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '61cd0a15184e739f35be8966ac0f88eb') in 0.420186167 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000046 seconds.
+  path: Assets/TextMesh Pro/Shaders/TMP_SDF-URP Lit.shadergraph
+  artifactKey: Guid(a3d800b099a06e0478fb790c5e79057a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TextMesh Pro/Shaders/TMP_SDF-URP Lit.shadergraph using Guid(a3d800b099a06e0478fb790c5e79057a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '12c735a53b68eae9ff937d0ce65566a4') in 3.092303167 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
