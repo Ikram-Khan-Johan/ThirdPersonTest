@@ -12,7 +12,10 @@ public class PlayerController : MonoBehaviour
     // [SerializeField] private CharacterController characterController;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float rotationSpeed = 0.1f; // Degrees per second
-                                                         // Update is called once per frame
+    [SerializeField] private float speedMultiplier = 1.5f; // Multiplier for speed
+    [SerializeField] private float moveSpeed = 5f; // Speed of the player movement
+
+    private bool isRunning = false; // Flag to check if the player is running
     private Rigidbody rb;
     // private bool isGrounded;
     // private float gravity = -9.81f; // Gravity value
@@ -56,12 +59,22 @@ public class PlayerController : MonoBehaviour
             interactable.Interact();
             // Handle interaction logic here
         }
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            isRunning = true; // Set running flag to true
+            moveSpeed *= speedMultiplier; // Increase the move speed
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            isRunning = false; // Set running flag to false
+            moveSpeed /= speedMultiplier; // Reset the move speed
+        }
 
         // Debug.Log("Player Rotation: " + transform.rotation.eulerAngles);
         // HandleMovement();
         // Debug.Log("Input Vector: " + inputVector);
 
-          
+
     }
     IInteractable interactable;
     void FixedUpdate()
@@ -86,14 +99,11 @@ public class PlayerController : MonoBehaviour
             cameraRight.y = 0; // Keep the right vector horizontal
             Vector3 finalMovementDirection = (cameraForward * inputVector.z) + (cameraRight * inputVector.x);
             finalMovementDirection.Normalize(); // Ensure the length is 1
-            float moveSpeed = 5f; // Example speed
             Vector3 moveVector = finalMovementDirection * moveSpeed * Time.deltaTime; // Adjust for time
 
             // rb.MovePosition(rb.position + (inputVector * speed * Time.fixedDeltaTime));
             // rb.MovePosition(rb.position + moveVector);
             transform.position += moveVector; // Move the player in the calculated direction
-
-
 
         }
         
