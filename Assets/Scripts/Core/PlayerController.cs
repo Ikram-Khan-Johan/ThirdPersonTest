@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
                                                      // private float gravity = -9.81f; // Gravity value
                                                      // private float jumpHeight = 2f; // Height of the jump
     [SerializeField] private float jumpForce = 5f; // Force applied when jumping
+    
 private bool isJumping = false; // Flag to check if the player is jumping
 
     // Input vector for movement
@@ -47,6 +48,7 @@ private bool isJumping = false; // Flag to check if the player is jumping
     Vector3 inputVector;
 
     bool inRange = false;
+    IInteractable interactable;
     void Update()
     {
         // HandleMovement();
@@ -84,19 +86,14 @@ private bool isJumping = false; // Flag to check if the player is jumping
 
         // }
         
-
     }
-    IInteractable interactable;
+
     void FixedUpdate()
     {
         rb.linearVelocity = Vector3.zero; // Reset linear velocity to prevent unwanted movement
         HandleMovement();
     }
 
-  void LateUpdate()
-    {
-        
-    }
     void HandleMovement()
     {
 
@@ -136,26 +133,33 @@ private bool isJumping = false; // Flag to check if the player is jumping
             }
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision collision)
     {
-        // if (other.gameObject.CompareTag("Door"))
-        //     other.gameObject.GetComponent<BoxCollider>().isTrigger = false;
-        Debug.Log("Entered trigger with: " + other.gameObject.name);
-
-        if (other.gameObject.CompareTag("movable"))
+        
+         if (collision.gameObject.CompareTag("movable"))
         {
-            Debug.Log("Collision detected with: " + other.gameObject.name);
-            var rb = other.gameObject.GetComponent<Rigidbody>();
+            Debug.Log("Collision detected with: " + collision.gameObject.name);
+            var rb = collision.gameObject.GetComponent<Rigidbody>();
             if (rb != null)
             {
                 // Apply a force to the movable object
-                Vector3 forceDirection = other.transform.position - transform.position;
-                rb.AddForce(forceDirection.normalized * speed, ForceMode.Impulse);
+                Vector3 forceDirection = collision.transform.position - transform.position;
+                rb.AddForce(forceDirection.normalized * 100, ForceMode.Impulse);
+                Debug.Log("Applied force to movable object: " + collision.gameObject.name + " with force: " + forceDirection.normalized * 100);
             }
             // Debug.Log("Collided with a movable object!");
             // Handle collision with movable object
         }
-        if (other.gameObject.CompareTag("CollectableCoin"))
+        
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        // if (other.gameObject.CompareTag("Door"))
+        //     other.gameObject.GetComponent<BoxCollider>().isTrigger = false;
+        // Debug.Log("Entered trigger with: " + other.gameObject.name);
+
+       if (other.gameObject.CompareTag("CollectableCoin"))
         {
             Debug.Log("Collision detected with: " + other.gameObject.name);
             ISoundPlayer soundPlayer = other.gameObject.GetComponent<ISoundPlayer>();
